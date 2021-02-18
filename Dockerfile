@@ -12,6 +12,7 @@ RUN yarn build
 FROM nginx:alpine
 
 COPY --from=frontend_builder /code/build/ /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 8080
+ADD nginx.conf /etc/nginx/conf.d/default.conf.template
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
