@@ -6,7 +6,8 @@ COPY yarn.lock .
 COPY package.json .
 RUN yarn install
 
-COPY . .
+COPY public public
+COPY src src
 RUN yarn build
 
 FROM nginx:alpine
